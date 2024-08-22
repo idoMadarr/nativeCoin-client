@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useRef} from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   Text,
@@ -8,35 +8,24 @@ import {
   SafeAreaView,
   StatusBar,
 } from 'react-native';
-// import {NativeStackNavigationProp, NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useAppSelector} from '../../redux/hooks';
 import MarketItem from './MarketItem';
 import {SymbolType} from '../../types/types';
-// import {SocketContext} from '../../services/socketIO';
-// import { RouteProp } from '@react-navigation/native';
+import colorPalette from '../../utils/colorPalette';
+
+const colors = colorPalette();
 
 interface MarketListPropsType {
   symbolTracker(viewableSymbols: string[]): void;
   currentCategory: string;
 }
-
-// type MarketListType = NativeStackScreenProps<RootStackParamsList>;
-
 const MarketList: React.FC<MarketListPropsType> = ({
   currentCategory,
   symbolTracker,
 }) => {
-  // const currentCategory = route.name;
-
-  // const socket = useContext(SocketContext) as any;
-
-  const categoryItems = useAppSelector(
-    state => state.marketSlice.symbolTree[currentCategory],
+  const symbolsList = useAppSelector(
+    state => state.marketSlice.symbolsList[currentCategory],
   );
-
-  // const symbolTracker = useCallback(async (viewableSymbols: string[]) => {
-  //   await socket.emit('tracker', viewableSymbols);
-  // }, []);
 
   const viewConfigRef = useRef({
     minimumViewTime: 800,
@@ -52,16 +41,23 @@ const MarketList: React.FC<MarketListPropsType> = ({
 
   return (
     <SafeAreaView style={styles.screen}>
-      <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
-      <Text style={{fontSize: 32}}>{currentCategory}</Text>
+      <StatusBar barStyle={'light-content'} backgroundColor={colors.primary} />
       <FlatList
-        data={Object.values(categoryItems)}
+        data={symbolsList}
         keyExtractor={itemData => itemData.id}
         contentContainerStyle={styles.flatlist}
         viewabilityConfig={viewConfigRef.current}
         showsVerticalScrollIndicator={false}
         onViewableItemsChanged={onViewRef.current}
-        renderItem={({item}) => <MarketItem {...item} />}
+        initialNumToRender={16}
+        ItemSeparatorComponent={() => <View style={styles.seperator} />}
+        renderItem={({item}) => (
+          <MarketItem
+            symbolName={item.symbolName}
+            ask={item.ask}
+            bid={item.bid}
+          />
+        )}
       />
     </SafeAreaView>
   );
@@ -71,9 +67,15 @@ const styles = StyleSheet.create({
   screen: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    backgroundColor: colors.primary,
   },
   flatlist: {
     alignItems: 'center',
+  },
+  seperator: {
+    height: 1,
+    width: Dimensions.get('window').width * 0.85,
+    backgroundColor: colors.contrast,
   },
 });
 

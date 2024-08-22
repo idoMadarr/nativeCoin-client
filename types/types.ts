@@ -13,8 +13,12 @@ export interface SymbolType {
   popularity?: undefined;
 }
 
-export interface SymbolTreeType {
-  [key: string]: {
-    [key: string]: SymbolType;
-  };
+export interface SymbolsObjectType {
+  // BTCUSD: { ask, bid... }
+  [key: string]: SymbolType;
+}
+
+export interface SymbolListType {
+  // FOREX: [ { ask, bid... }, ... ]
+  [key: string]: SymbolType[];
 }

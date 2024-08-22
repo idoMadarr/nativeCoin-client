@@ -1,14 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {SymbolTreeType, SymbolType} from '../../types/types';
+import {SymbolsObjectType, SymbolType, SymbolListType} from '../../types/types';
 
 interface RootStateApp {
-  symbolTree: SymbolTreeType;
+  symbolsObject: SymbolsObjectType;
   categories: string[];
+  symbolsList: SymbolListType;
 }
 
 const initialState: RootStateApp = {
-  symbolTree: {},
   categories: [],
+  symbolsObject: {},
+  symbolsList: {},
 };
 
 export const marketSlice = createSlice({
@@ -16,15 +18,16 @@ export const marketSlice = createSlice({
   initialState,
   reducers: {
     setSymbolTree: (state, action) => {
-      state.symbolTree = action.payload;
-      state.categories = Object.keys(action.payload);
+      state.categories = action.payload.categories;
+      state.symbolsObject = action.payload.symbolsObject;
+      state.symbolsList = action.payload.symbolsList;
     },
     setUpdates: (state, action) => {
       const updates: SymbolType[] = action.payload;
 
       for (const update of updates) {
-        state.symbolTree[update.type][update.symbolName].bid = update.bid;
-        state.symbolTree[update.type][update.symbolName].ask = update.ask;
+        state.symbolsObject[update.symbolName].bid = update.bid;
+        state.symbolsObject[update.symbolName].ask = update.ask;
         // ...
       }
     },

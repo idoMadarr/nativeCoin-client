@@ -1,0 +1,16 @@
+{
+  "light-mode": {},
+  "dark-mode": {
+    "primary": "#0a0712",
+    "secondary": "#393053",
+    "tertiary": "#443C68",
+    "light": "#635985",
+    "bright": "#FAF0E6",
+    "success": "#4BB543",
+    "contrast": "#FFFFFF",
+    "black": "#000000",
+    "warning": "#CD2026",
+    "transparent": "#ffffff00",
+    "greyish": "#333"
+  }
+}
