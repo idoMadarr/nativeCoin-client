@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {View, StyleSheet, Image, Dimensions} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import TextElement from '../Resuable/TextElement';
 import colorPalette from '../../utils/colorPalette';
@@ -63,8 +62,7 @@ const MarketItem: React.FC<MarketItemPropsType> = ({symbolName, ask, bid}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <FastImage
-          fallback={true}
+        <Image
           source={{
             uri: `http://10.0.2.2:3000/icons/${symbolName}.png`,
           }}

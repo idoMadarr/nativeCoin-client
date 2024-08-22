@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-// import EStyleSheet from 'react-native-extended-stylesheet';
+import {Text} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import colorPalette from '../../utils/colorPalette';
 
 const colors = colorPalette();
@@ -20,18 +20,18 @@ const TextElement: React.FC<TextElementType> = ({
   cStyle = {},
   numberOfLines,
 }) => {
-  //   const setFontSize = (size: string = 'm') => {
-  //     const fontSize =
-  //       size === 'sm'
-  //         ? '0.9rem'
-  //         : size === 'm'
-  //         ? '1rem'
-  //         : size === 'lg'
-  //         ? '1.2rem'
-  //         : '2rem';
+  const setFontSize = (size: string = 'm') => {
+    const fontSize =
+      size === 's'
+        ? '0.9rem'
+        : size === 'm'
+        ? '1rem'
+        : size === 'lg'
+        ? '1.4rem'
+        : '2.8rem';
 
-  //     return fontSize;
-  //   };
+    return fontSize;
+  };
 
   const setFontFamily = (font?: string) => {
     return font === 'bold'
@@ -41,9 +41,9 @@ const TextElement: React.FC<TextElementType> = ({
       : 'PloniMLv2AAA-Regular';
   };
 
-  const styles = StyleSheet.create({
+  const styles = EStyleSheet.create({
     constants: {
-      fontSize: 16,
+      fontSize: setFontSize(fontSize),
       fontFamily: setFontFamily(fontWeight),
       color: colors.contrast,
     },

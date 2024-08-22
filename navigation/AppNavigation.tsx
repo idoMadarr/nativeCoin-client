@@ -7,6 +7,7 @@ import SplashScreen from '../screens/SplashScreen';
 import {SymbolType} from '../types/types';
 import {useAppDispatch} from '../redux/hooks';
 import {setUpdates} from '../redux/slices/marketSlice';
+import MarketHeader from '../components/MarketPartials/MarketHeader';
 
 const AppNavigation = () => {
   const AppNavigator = createNativeStackNavigator();
@@ -24,7 +25,11 @@ const AppNavigation = () => {
     <NavigationContainer>
       <AppNavigator.Navigator screenOptions={{headerShown: false}}>
         <AppNavigator.Screen name={'splash'} component={SplashScreen} />
-        <AppNavigator.Screen name={'market'} component={MarketScreen} />
+        <AppNavigator.Screen
+          name={'market'}
+          component={MarketScreen}
+          options={{headerShown: true, header: () => <MarketHeader />}}
+        />
       </AppNavigator.Navigator>
     </NavigationContainer>
   );
