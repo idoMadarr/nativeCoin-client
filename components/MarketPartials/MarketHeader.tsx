@@ -20,7 +20,7 @@ const MarketHeader = () => {
           oin
         </TextElement>
         <TextElement>
-          * Trading app for crypto, forex, bonds, indices and more, offering
+          Trading app for crypto, forex, bonds, indices and more, offering
           real-time (demo) data.
         </TextElement>
       </View>
