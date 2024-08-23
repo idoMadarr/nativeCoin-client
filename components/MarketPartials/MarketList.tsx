@@ -1,7 +1,6 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   FlatList,
@@ -14,6 +13,8 @@ import {SymbolType} from '../../types/types';
 import colorPalette from '../../utils/colorPalette';
 
 const colors = colorPalette();
+const INIT_PAGE = 1;
+const DISPLAY_PER_BATCH = 16;
 
 interface MarketListPropsType {
   symbolTracker(viewableSymbols: string[]): void;
@@ -26,6 +27,19 @@ const MarketList: React.FC<MarketListPropsType> = ({
   const symbolsList = useAppSelector(
     state => state.marketSlice.symbolsList[currentCategory],
   );
+
+  const [currentPage, setCurrentPage] = useState<number>(INIT_PAGE);
+  const [displaySymbols, setDisplaySymbols] = useState<SymbolType[]>([]);
+
+  const indexOfLastList = currentPage * DISPLAY_PER_BATCH;
+  const indexOfFirstList = indexOfLastList - DISPLAY_PER_BATCH;
+
+  const onEndReached = () => setCurrentPage(prevState => prevState + 1);
+
+  useEffect(() => {
+    const loadSymbols = symbolsList.slice(indexOfFirstList, indexOfLastList);
+    setDisplaySymbols(prevState => prevState.concat(loadSymbols));
+  }, [currentPage]);
 
   const viewConfigRef = useRef({
     minimumViewTime: 800,
@@ -43,13 +57,16 @@ const MarketList: React.FC<MarketListPropsType> = ({
     <SafeAreaView style={styles.screen}>
       <StatusBar barStyle={'light-content'} backgroundColor={colors.primary} />
       <FlatList
-        data={symbolsList}
+        data={displaySymbols}
         keyExtractor={itemData => itemData.id}
         contentContainerStyle={styles.flatlist}
         viewabilityConfig={viewConfigRef.current}
         showsVerticalScrollIndicator={false}
         onViewableItemsChanged={onViewRef.current}
-        initialNumToRender={16}
+        initialNumToRender={10}
+        // removeClippedSubviews={true}
+        onEndReachedThreshold={0}
+        onEndReached={onEndReached}
         ItemSeparatorComponent={() => <View style={styles.seperator} />}
         renderItem={({item}) => (
           <MarketItem

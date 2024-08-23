@@ -4,8 +4,8 @@ import {useAppSelector} from '../redux/hooks';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {StyleSheet, useWindowDimensions, View} from 'react-native';
 import {SocketContext} from '../services/socketIO';
-import axios from 'axios';
 import colorPalette from '../utils/colorPalette';
+import axiosInstance from '../utils/axiosInstance';
 
 const colors = colorPalette();
 
@@ -31,7 +31,7 @@ const MarketScreen = () => {
 
   const fetchViewableSymbols = async (viewableSymbols: string[]) => {
     try {
-      await axios.post('http://10.0.2.2:3000/viewable', {
+      await axiosInstance.post('/viewable', {
         viewableSymbols,
         userId: socket.id,
       });
