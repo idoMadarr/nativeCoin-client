@@ -32,15 +32,11 @@ const SplashScreen: React.FC<SplashScreenType> = ({navigation}) => {
   }, []);
 
   const initApp = async () => {
-    try {
-      const data = await axiosInstance.get('/static');
-      if (data) {
-        dispatch(setSymbolTree(data));
-        // @ts-ignore:
-        navigation.navigate('market');
-      }
-    } catch (error) {
-      console.log(error);
+    const data = await axiosInstance.get('/static');
+    if (data) {
+      dispatch(setSymbolTree(data));
+      // @ts-ignore:
+      navigation.navigate('market');
     }
   };
 

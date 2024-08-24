@@ -30,14 +30,10 @@ const MarketScreen = () => {
   };
 
   const fetchViewableSymbols = async (viewableSymbols: string[]) => {
-    try {
-      await axiosInstance.post('/viewable', {
-        viewableSymbols,
-        userId: socket.id,
-      });
-    } catch (error) {
-      console.log(`Error while sending data... ${error}`);
-    }
+    await axiosInstance.post('/viewable', {
+      viewableSymbols,
+      userId: socket.id,
+    });
   };
 
   const optimizeSearchFunc = useCallback(debounce(fetchViewableSymbols), []);
