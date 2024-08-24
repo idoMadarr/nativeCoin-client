@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "reverse": "adb reverse tcp:8081 tcp:8081",
+    "apk": "cd android && gradlew assembleRelease",
+    "aab": "cd android && gradlew bundleRelease"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.6.1",

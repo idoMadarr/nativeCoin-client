@@ -3,6 +3,7 @@ import {View, StyleSheet, Image, Dimensions} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import TextElement from '../Resuable/TextElement';
 import colorPalette from '../../utils/colorPalette';
+import Config from 'react-native-config';
 
 const colors = colorPalette();
 interface MarketItemPropsType {
@@ -64,7 +65,7 @@ const MarketItem: React.FC<MarketItemPropsType> = ({symbolName, ask, bid}) => {
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: `http://10.0.2.2:3000/icons/${symbolName}.png`,
+            uri: `${Config.PRODUCTION}/icons/${symbolName}.png`,
           }}
           style={styles.image}
         />
