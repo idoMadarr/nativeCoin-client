@@ -12,7 +12,7 @@ import {useAppSelector} from '../../redux/hooks';
 import MarketItem from './MarketItem';
 import {SymbolType} from '../../types/types';
 import colorPalette from '../../utils/colorPalette';
-import {symbolLogo} from '../../assets/symbolImageObj';
+import {symbolLogo} from '../../utils/symbolImageObj';
 
 const colors = colorPalette();
 const INIT_PAGE = 1;
@@ -75,7 +75,7 @@ const MarketList: React.FC<MarketListPropsType> = ({
             symbolName={item.symbolName}
             ask={item.ask}
             bid={item.bid}>
-            <Image source={symbolLogo[item.symbolName]} />
+            <Image source={symbolLogo[item.symbolName || 'BTCUSD']} />
           </MarketItem>
         )}
       />
