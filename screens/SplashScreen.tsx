@@ -26,9 +26,7 @@ const SplashScreen: React.FC<SplashScreenType> = ({navigation}) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      initApp();
-    }, 3500);
+    initApp();
   }, []);
 
   const initApp = async () => {

@@ -1,21 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, StyleSheet, Image, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import TextElement from '../Resuable/TextElement';
 import colorPalette from '../../utils/colorPalette';
-import Config from 'react-native-config';
 
 const colors = colorPalette();
 interface MarketItemPropsType {
   symbolName: string;
   ask: string;
   bid: string;
+  children: JSX.Element | JSX.Element[] | string | any;
 }
 
 const BID = 'BID';
 const ASK = 'ASK';
 
-const MarketItem: React.FC<MarketItemPropsType> = ({symbolName, ask, bid}) => {
+const MarketItem: React.FC<MarketItemPropsType> = ({
+  children,
+  symbolName,
+  ask,
+  bid,
+}) => {
   const currentSymbol = useAppSelector(
     state => state.marketSlice.symbolsObject[symbolName],
   );
@@ -62,14 +67,7 @@ const MarketItem: React.FC<MarketItemPropsType> = ({symbolName, ask, bid}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{
-            uri: `${Config.PRODUCTION}/icons/${symbolName}.png`,
-          }}
-          style={styles.image}
-        />
-      </View>
+      <View style={styles.imageContainer}>{children}</View>
       <View style={styles.symbolContainer}>
         <TextElement>{currentSymbol.symbol}</TextElement>
         <TextElement fontWeight={'bold'}>{symbolName}</TextElement>
@@ -99,10 +97,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.09,
     height: Dimensions.get('window').width * 0.09,
     marginRight: '5%',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
   },
   symbolContainer: {
     justifyContent: 'center',

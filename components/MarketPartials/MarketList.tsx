@@ -6,11 +6,13 @@ import {
   FlatList,
   SafeAreaView,
   StatusBar,
+  Image,
 } from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import MarketItem from './MarketItem';
 import {SymbolType} from '../../types/types';
 import colorPalette from '../../utils/colorPalette';
+import {symbolLogo} from '../../assets/symbolImageObj';
 
 const colors = colorPalette();
 const INIT_PAGE = 1;
@@ -72,8 +74,9 @@ const MarketList: React.FC<MarketListPropsType> = ({
           <MarketItem
             symbolName={item.symbolName}
             ask={item.ask}
-            bid={item.bid}
-          />
+            bid={item.bid}>
+            <Image source={symbolLogo[item.symbolName]} />
+          </MarketItem>
         )}
       />
     </SafeAreaView>
