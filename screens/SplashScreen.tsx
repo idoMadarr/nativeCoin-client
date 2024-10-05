@@ -65,7 +65,7 @@ const SplashScreen: React.FC<SplashScreenType> = ({navigation}) => {
           A cutting-edge trading app that allows users to seamlessly trade
           cryptocurrencies, forex, bonds, and other assets in real-time.
         </TextElement>
-        <TextElement fontWeight={'bold'}>- Demo Application -</TextElement>
+        <TextElement fontWeight={'bold'}>- Demo App -</TextElement>
         <ActivityIndicator color={colors.success} style={styles.indicator} />
       </View>
     </SafeAreaView>

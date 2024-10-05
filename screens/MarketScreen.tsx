@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   tabBarLabelStyle: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.contrast,
   },
   tabBarIndicatorContainerStyle: {
